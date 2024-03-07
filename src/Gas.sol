@@ -148,13 +148,7 @@ contract GasContract is Ownable {
     }
 
     function getTradingMode() public view returns (bool mode_) {
-        bool mode = false;
-        if (tradeFlag || dividendFlag) {
-            mode = true;
-        } else {
-            mode = false;
-        }
-        return mode;
+        return (tradeFlag || dividendFlag);
     }
 
 
