@@ -1,5 +1,12 @@
 name: forge_gas_op
 
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+
 jobs:
   check:
     name: Foundry project
@@ -14,7 +21,7 @@ jobs:
 
       - name: Run tests
         run: forge test --gas-report > gas-report.txt
-      
+
       - name: Archive gas report
         uses: actions/upload-artifact@v4
         with:
