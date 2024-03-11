@@ -69,9 +69,7 @@ contract GasContract is Ownable {
         } else if (senderOfTx == contractOwner) {
             _;
         } else {
-            revert(
-                "Error in Gas contract - onlyAdminOrOwner modifier : revert happened because the originator of the transaction was not the admin, and furthermore he wasn't the owner of the contract, so he cannot run this function"
-            );
+            revert("1");
         }
     }
 
@@ -79,16 +77,16 @@ contract GasContract is Ownable {
         address senderOfTx = msg.sender;
         require(
             senderOfTx == sender,
-            "Gas Contract CheckIfWhiteListed modifier : revert happened because the originator of the transaction was not the sender"
+            "2"
         );
         uint256 usersTier = whitelist[senderOfTx];
         require(
             usersTier > 0,
-            "Gas Contract CheckIfWhiteListed modifier : revert happened because the user is not whitelisted"
+            "3"
         );
         require(
             usersTier < 4,
-            "Gas Contract CheckIfWhiteListed modifier : revert happened because the user's tier is incorrect, it cannot be over 4 as the only tier we have are: 1, 2, 3; therfore 4 is an invalid tier for the whitlist of this contract. make sure whitlist tiers were set correctly"
+            "4"
         );
         _;
     }
