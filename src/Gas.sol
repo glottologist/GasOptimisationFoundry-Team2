@@ -155,22 +155,9 @@ administrators[0] = _admins[0];
             balances[senderOfTx] >= _amount,
             "7"
         );
-        require(
-            bytes(_name).length < 9,
-            "8"
-        );
         balances[senderOfTx] -= _amount;
         balances[_recipient] += _amount;
         emit Transfer(_recipient, _amount);
-        Payment memory payment;
-        payment.admin = address(0);
-        payment.adminUpdated = false;
-        payment.paymentType = PaymentType.BasicPayment;
-        payment.recipient = _recipient;
-        payment.amount = _amount;
-        payment.recipientName = _name;
-        payment.paymentID = ++paymentCounter;
-        payments[senderOfTx].push(payment);
         return true;
     }
 
