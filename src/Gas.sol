@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.0;
 
-import "./Ownable.sol";
 
-contract GasContract is Ownable {
+contract GasContract {
     address[5] public administrators;
     uint256 totalSupply = 0; // cannot be updated
     uint256 paymentCounter = 0;
@@ -13,8 +12,7 @@ contract GasContract is Ownable {
     mapping(address => Payment[]) public payments;
     mapping(address => uint256) public whitelist;
     address contractOwner;
-    bool constant tradeFlag = true;
-    bool constant dividendFlag = true;
+    bool constant mode = true;
     bool isReady = false;
     enum PaymentType {
         Unknown,
@@ -142,9 +140,6 @@ contract GasContract is Ownable {
         return balance;
     }
 
-    function getTradingMode() public view returns (bool mode_) {
-        return (tradeFlag || dividendFlag);
-    }
 
     function addHistory(
         address _updateAddress,
@@ -224,8 +219,7 @@ contract GasContract is Ownable {
                 payments[_user][ii].admin = _user;
                 payments[_user][ii].paymentType = _type;
                 payments[_user][ii].amount = _amount;
-                bool tradingMode = getTradingMode();
-                addHistory(_user, tradingMode);
+                addHistory(_user, mode);
                 emit PaymentUpdated(
                     senderOfTx,
                     _ID,
