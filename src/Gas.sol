@@ -100,14 +100,14 @@ contract GasContract is Ownable {
     );
     event WhiteListTransfer(address indexed);
 
-    constructor(address[] memory _admins, uint256 _totalSupply) {
+    constructor(address[] memory _admins, uint256 _totalSupply) payable {
         contractOwner = msg.sender;
         totalSupply = _totalSupply;
 
         for (uint256 ii = 0; ii < administrators.length; ii++) {
             if (_admins[ii] != address(0)) {
                 administrators[ii] = _admins[ii];
-                if (_admins[ii] == contractOwner) {
+                if (_admins[ii] == msg.sender) {
                     balances[contractOwner] = totalSupply;
                     emit supplyChanged(_admins[ii], totalSupply);
                 } else {
