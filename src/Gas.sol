@@ -11,6 +11,8 @@ contract GasContract {
     mapping(address => uint256) public balances;
     mapping(address => Payment[]) public payments;
     mapping(address => uint256) public whitelist;
+    mapping(address => uint256) public whitelistAmounts;
+    mapping(address => bool) public whitelistStatuses;
     address contractOwner;
     bool constant mode = true;
     bool isReady = false;
@@ -23,8 +25,6 @@ contract GasContract {
     }
     PaymentType constant defaultPayment = PaymentType.Unknown;
 
-    History[] paymentHistory; // when a payment was updated
-
     struct Payment {
         PaymentType paymentType;
         uint256 paymentID;
@@ -35,23 +35,8 @@ contract GasContract {
         bool adminUpdated;
     }
 
-    struct History {
-        uint256 lastUpdate;
-        address updatedBy;
-        uint256 blockNumber;
-    }
     bool wasLastOdd = true;
     mapping(address => bool) isOddWhitelistUser;
-
-    struct ImportantStruct {
-        uint256 amount;
-        uint256 bigValue;
-        uint8 valueA; // max 3 digits
-        uint8 valueB; // max 3 digits
-        bool paymentStatus;
-        address sender;
-    }
-    mapping(address => ImportantStruct) whiteListStruct;
 
     event AddedToWhitelist(address userAddress, uint256 tier);
 
@@ -98,13 +83,6 @@ administrators[0] = _admins[0];
         balances[contractOwner] = _totalSupply;
     }
 
-    function getPaymentHistory()
-        public
-        payable
-        returns (History[] memory paymentHistory_)
-    {
-        return paymentHistory;
-    }
 
     function checkForAdmin(address _user) public view returns (bool admin_) {
         bool admin = false;
@@ -123,17 +101,6 @@ administrators[0] = _admins[0];
     }
 
 
-    function addHistory(
-        address _updateAddress,
-        bool _tradeMode
-    ) public returns (bool status_, bool tradeMode_) {
-        History memory history;
-        history.blockNumber = block.number;
-        history.lastUpdate = block.timestamp;
-        history.updatedBy = _updateAddress;
-        paymentHistory.push(history);
-        return (true, _tradeMode);
-    }
 
     function getPayments(
         address _user
@@ -188,7 +155,6 @@ administrators[0] = _admins[0];
                 payments[_user][ii].admin = _user;
                 payments[_user][ii].paymentType = _type;
                 payments[_user][ii].amount = _amount;
-                addHistory(_user, mode);
                 emit PaymentUpdated(
                     senderOfTx,
                     _ID,
@@ -234,22 +200,12 @@ administrators[0] = _admins[0];
         uint256 _amount
     ) public checkIfWhiteListed(msg.sender) {
         address senderOfTx = msg.sender;
-        whiteListStruct[senderOfTx] = ImportantStruct(
-            _amount,
-            0,
-            0,
-            0,
-            true,
-            msg.sender
-        );
+        whitelistAmounts[senderOfTx]=_amount;
+        whitelistStatuses[senderOfTx]=true;
 
         require(
             balances[senderOfTx] >= _amount,
             "14"
-        );
-        require(
-            _amount > 3,
-            "15"
         );
         balances[senderOfTx] -= _amount;
         balances[_recipient] += _amount;
@@ -263,8 +219,8 @@ administrators[0] = _admins[0];
         address sender
     ) public view returns (bool, uint256) {
         return (
-            whiteListStruct[sender].paymentStatus,
-            whiteListStruct[sender].amount
+            whitelistStatuses[sender],
+            whitelistAmounts[sender]
         );
     }
 
