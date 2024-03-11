@@ -1,0 +1,108 @@
+{
+  "error_codes": [
+    {
+      "code": "1",
+      "message": "Error in Gas contract - onlyAdminOrOwner modifier : revert happened because the originator of the transaction was not the admin, and furthermore he wasn't the owner of the contract, so he cannot run this function"
+    },
+    {
+      "code": "2",
+      "message": "Gas Contract CheckIfWhiteListed modifier : revert happened because the originator of the transaction was not the sender"
+    },
+    {
+      "code": "3",
+      "message": "Gas Contract CheckIfWhiteListed modifier : revert happened because the user is not whitelisted"
+    },
+    {
+      "code": "4",
+      "message": "Gas Contract CheckIfWhiteListed modifier : revert happened because the user's tier is incorrect, it cannot be over 4 as the only tier we have are: 1, 2, 3; therfore 4 is an invalid tier for the whitlist of this contract. make sure whitlist tiers were set correctly"
+    },
+    {
+      "code": "5",
+      "message": "Gas Contract Only Admin Check-  Caller not admin"
+    },
+    {
+      "code": "6",
+      "message": "Gas Contract - getPayments function - User must have a valid non zero address"
+    },
+    {
+      "code": "7",
+      "message": "Gas Contract - Transfer function - Sender has insufficient Balance"
+    },
+    {
+      "code": "8",
+      "message": "Gas Contract - Transfer function -  The recipient name is too long, there is a max length of 8 characters"
+    },
+    {
+      "code": "9",
+      "message": "Gas Contract - Update Payment function - ID must be greater than 0"
+    },
+    {
+      "code": "10",
+      "message": "Gas Contract - Update Payment function - Amount must be greater than 0"
+    },
+    {
+      "code": "11",
+      "message": "Gas Contract - Update Payment function - Administrator must have a valid non zero address"
+    },
+    {
+      "code": "12",
+      "message": "Gas Contract - addToWhitelist function -  tier level should not be greater than 255"
+    },
+    {
+      "code": "13",
+      "message": "Contract hacked, imposible, call help"
+    },
+    {
+      "code": "14",
+      "message": "Gas Contract - whiteTransfers function - Sender has insufficient Balance"
+    },
+    {
+      "code": "15",
+      "message": "Gas Contract - whiteTransfers function - amount to send have to be bigger than 3"
+    },
+    {
+      "code": "2",
+      "message": ""
+    },
+    {
+      "code": "2",
+      "message": ""
+    },
+    {
+      "code": "2",
+      "message": ""
+    },
+    {
+      "code": "2",
+      "message": ""
+    },
+    {
+      "code": "2",
+      "message": ""
+    },
+    {
+      "code": "2",
+      "message": ""
+    },
+    {
+      "code": "2",
+      "message": ""
+    },
+    {
+      "code": "2",
+      "message": ""
+    },
+    {
+      "code": "2",
+      "message": ""
+    },
+    {
+      "code": "2",
+      "message": ""
+    },
+    {
+      "code": "2",
+      "message": ""
+    },
+  ]
+}

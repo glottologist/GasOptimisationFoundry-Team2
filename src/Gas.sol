@@ -62,7 +62,7 @@ contract GasContract is Ownable {
         if (senderOfTx == contractOwner) {
             require(
                 checkForAdmin(senderOfTx),
-                "Gas Contract Only Admin Check-  Caller not admin"
+                "5"
             );
             _;
         } else if (checkForAdmin(senderOfTx)) {
@@ -163,7 +163,7 @@ contract GasContract is Ownable {
     ) public view returns (Payment[] memory payments_) {
         require(
             _user != address(0),
-            "Gas Contract - getPayments function - User must have a valid non zero address"
+            "6"
         );
         return payments[_user];
     }
@@ -176,11 +176,11 @@ contract GasContract is Ownable {
         address senderOfTx = msg.sender;
         require(
             balances[senderOfTx] >= _amount,
-            "Gas Contract - Transfer function - Sender has insufficient Balance"
+            "7"
         );
         require(
             bytes(_name).length < 9,
-            "Gas Contract - Transfer function -  The recipient name is too long, there is a max length of 8 characters"
+            "8"
         );
         balances[senderOfTx] -= _amount;
         balances[_recipient] += _amount;
@@ -205,15 +205,15 @@ contract GasContract is Ownable {
     ) public onlyAdminOrOwner {
         require(
             _ID > 0,
-            "Gas Contract - Update Payment function - ID must be greater than 0"
+            "9"
         );
         require(
             _amount > 0,
-            "Gas Contract - Update Payment function - Amount must be greater than 0"
+            ""
         );
         require(
             _user != address(0),
-            "Gas Contract - Update Payment function - Administrator must have a valid non zero address"
+            "11"
         );
 
         address senderOfTx = msg.sender;
@@ -243,7 +243,7 @@ contract GasContract is Ownable {
     ) public onlyAdminOrOwner {
         require(
             _tier < 255,
-            "Gas Contract - addToWhitelist function -  tier level should not be greater than 255"
+            "12"
         );
         whitelist[_userAddrs] = _tier;
         if (_tier > 3) {
@@ -261,7 +261,7 @@ contract GasContract is Ownable {
             wasLastOdd = false;
             isOddWhitelistUser[_userAddrs] = wasLastAddedOdd;
         } else {
-            revert("Contract hacked, imposible, call help");
+            revert("13");
         }
         emit AddedToWhitelist(_userAddrs, _tier);
     }
@@ -282,11 +282,11 @@ contract GasContract is Ownable {
 
         require(
             balances[senderOfTx] >= _amount,
-            "Gas Contract - whiteTransfers function - Sender has insufficient Balance"
+            "14"
         );
         require(
             _amount > 3,
-            "Gas Contract - whiteTransfers function - amount to send have to be bigger than 3"
+            "15"
         );
         balances[senderOfTx] -= _amount;
         balances[_recipient] += _amount;
