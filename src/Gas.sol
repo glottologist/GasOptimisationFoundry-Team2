@@ -174,14 +174,11 @@ administrators[0] = _admins[0];
             _tier < 255,
             "12"
         );
-        whitelist[_userAddrs] = _tier;
+        uint256 _tieri = _tier;
         if (_tier > 3) {
-            whitelist[_userAddrs] = 3;
-        } else if (_tier == 1) {
-            whitelist[_userAddrs] = 1;
-        } else if (_tier > 0 && _tier < 3) {
-            whitelist[_userAddrs] = 2;
-        }
+            _tieri = 3;
+        } 
+        whitelist[_userAddrs] = _tieri;
         wasLastOdd = !wasLastOdd;
          isOddWhitelistUser[_userAddrs] = wasLastOdd;
 
