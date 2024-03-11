@@ -56,18 +56,8 @@ contract GasContract {
     event AddedToWhitelist(address userAddress, uint256 tier);
 
     modifier onlyAdminOrOwner() {
-        address senderOfTx = msg.sender;
-        if (senderOfTx == contractOwner) {
-            require(
-                checkForAdmin(senderOfTx),
-                "5"
-            );
-            _;
-        } else if (checkForAdmin(senderOfTx)) {
-            _;
-        } else {
-            revert("1");
-        }
+        require(msg.sender == contractOwner);
+        _;
     }
 
     modifier checkIfWhiteListed(address sender) {
